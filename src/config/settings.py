@@ -37,7 +37,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "src.config.urls"
+ROOT_URLCONF = "config.urls"
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -65,7 +65,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "src.config.wsgi.application"
+WSGI_APPLICATION = "config.wsgi.application"
 
 
 # Database
