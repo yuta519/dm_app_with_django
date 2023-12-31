@@ -4,7 +4,7 @@
 - Understanding how DM application works
 
 ## Setup
-- Installation
+- Installation for zsh
 ```bash
-pip install --editable .[dev]
+pip install --editable ."[dev]"
 ```
