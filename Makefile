@@ -5,7 +5,7 @@ install:
 	@pip install --editable ."[dev]"
 	@pre-commit install
 
-.PHONY: update
-update:
-	@poetry update
-	@poetry run pre-commit autoupdate
+.PHONY: test
+test:
+	@ruff $(PACKAGE_DIR)
+	@mypy $(PACKAGE_DIR)
