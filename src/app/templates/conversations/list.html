@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Conversations</h1>
+  <ul>
+    {% for user in user_list %}
+      <li>
+        <a href="{% url 'user_detail' user.pk %}">{{user}}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
