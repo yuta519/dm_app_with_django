@@ -1,5 +1,6 @@
 from django.views import generic
 
+from app.forms import ConversationForm
 from app.models import Conversation
 
 
@@ -15,4 +16,7 @@ class ConversationDetailView(generic.DetailView):
 
 class ConversationCreateView(generic.CreateView):
     model = Conversation
-    fields = ["name", "description"]
+    form_class = ConversationForm
+    fields = ["user1", "user2"]
+    template_name = "users/detail.html"
+    success_url = "/"
