@@ -14,6 +14,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+  "djangorestframework",
   "django-stubs",
   "ipdb",
   "pip-tools",
@@ -23,7 +24,10 @@ dev = [
 ]
 
 [tool.mypy]
-plugins = ["mypy_django_plugin.main"]
+plugins = [
+  "mypy_django_plugin.main",
+  "mypy_drf_plugin.main",
+]
 
 [tool.django-stubs]
 django_settings_module = "src.config.settings"
