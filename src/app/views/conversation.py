@@ -1,7 +1,8 @@
 from django.views import generic
+from rest_framework import viewsets
 
-from app.forms import ConversationForm
 from app.models import Conversation
+from app.serializers import ConversationSerializer
 
 
 class ConversationListView(generic.ListView):
@@ -14,9 +15,13 @@ class ConversationDetailView(generic.DetailView):
     template_name = "conversations/detail.html"
 
 
-class ConversationCreateView(generic.CreateView):
-    model = Conversation
-    form_class = ConversationForm
-    fields = ["user1", "user2"]
-    template_name = "users/detail.html"
-    success_url = "/"
+class ConversationApiViewSet(viewsets.ModelViewSet):
+    queryset = Conversation.objects.all()
+    serializer_class = ConversationSerializer
+
+    def get_queryset(self):
+        queryset = Conversation.objects.all()
+        user = self.request.query_params.get("user", None)
+        if user is not None:
+            queryset = queryset.filter(user=user)
+        return queryset
