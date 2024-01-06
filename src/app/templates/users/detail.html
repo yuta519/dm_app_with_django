@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+  <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
   <h1>User Detail</h1>
   <p>Name: {{ user }}</p>
   <p>Email: {{ user.email }}</p>
-  <form action="{% url 'user_detail' user.pk %}">
+  <form action="{% url 'conversation_api' %}" method="post" target="dummyframe">
+    <input type="hidden" name="user1" value="{{ user.pk }}">
+    <input type="hidden" name="user2" value="{{ user.pk }}">
     <button type="submit">Start Convesation</button>
   </form>
 {% endblock %}
