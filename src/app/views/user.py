@@ -1,8 +1,6 @@
 from django.contrib.auth.models import User
 from django.views import generic
 
-# from app.models import User
-
 
 class UserListView(generic.ListView):
     model = User

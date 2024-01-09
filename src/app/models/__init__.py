@@ -9,6 +9,5 @@ class BaseModel(models.Model):
         abstract = True
 
 
-from .user import *
-from .message import *
-from .conversation import *
+from .message import *  # noqa: E402, F403
+from .conversation import *  # noqa: E402, F403

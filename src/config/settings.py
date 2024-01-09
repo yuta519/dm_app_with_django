@@ -42,6 +42,8 @@ ROOT_URLCONF = "config.urls"
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
+    # 'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
