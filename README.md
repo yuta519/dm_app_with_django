@@ -7,4 +7,8 @@
 - Installation for zsh
 ```bash
 pip install --editable ."[dev]"
+
+or
+
+make install
 ```
