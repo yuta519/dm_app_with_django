@@ -9,21 +9,17 @@
       const response = await createConversations(user1, user2);
       location.href = `/conversations/${response.id}/`;
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 </script>
 
-<button onclick="fetchConversations()">Click me!</button>
-<iframe name="dummyframe" id="dummyframe" style="display: none"></iframe>
+<iframe name="iframe" id="iframe" style="display: none"></iframe>
 <h1>User Detail</h1>
 <p>Name: {{ user }}</p>
 <p>Email: {{ user.email }}</p>
-<form
-  id="start-conversation-form"
-  onSubmit="handleSubmit()"
-  target="dummyframe"
->
+<form id="start-conversation-form" onSubmit="handleSubmit()" target="iframe">
+  {% csrf_token %}
   <input type="hidden" name="user1" value="{{ user.pk }}" />
   <input type="hidden" name="user2" value="{{ user.pk }}" />
   <button type="submit">Start Convesation</button>

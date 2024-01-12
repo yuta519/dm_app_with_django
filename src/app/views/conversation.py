@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from rest_framework import viewsets
 
@@ -5,7 +6,7 @@ from app.models import Conversation
 from app.serializers import ConversationSerializer
 
 
-class ConversationListView(generic.ListView):
+class ConversationListView(LoginRequiredMixin, generic.ListView):
     model = Conversation
     template_name = "conversations/list.html"
 
@@ -15,7 +16,7 @@ class ConversationDetailView(generic.DetailView):
     template_name = "conversations/detail.html"
 
 
-class ConversationApiViewSet(viewsets.ModelViewSet):
+class ConversationApiViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = Conversation.objects.all()
     serializer_class = ConversationSerializer
 
