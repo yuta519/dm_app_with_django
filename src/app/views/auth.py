@@ -24,5 +24,4 @@ class LoginView(generic.FormView):
 
 def logout_view(request):
     logout(request)
-    print(request.user.is_authenticated)
     return redirect("/")
