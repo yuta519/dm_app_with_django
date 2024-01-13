@@ -1,0 +1,67 @@
+{% load static %}
+{% block content %}
+  {% if form.errors %}
+  <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+    {% else %}
+      <p>Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      background-size: cover;
+      background-image: linear-gradient(to right, #ff9966, #808080);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .form-signin {
+      max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    }
+    .form-signin-heading {
+      margin-bottom: 30px;
+    }
+    .btn-primary {
+      background-color: #ff5e62;
+      border-color: #ff5e62;
+    }
+    .avatar {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 10px;
+      display: block;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form class="form-signin" method="post">
+      {% csrf_token %}
+      <img class="avatar" src="{% static 'images/avatar.png' %}">
+      <h2 class="form-signin-heading text-center">Please sign in</h2>
+      {{ form.as_p }}
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+  </div>
+</body>
+</html>
+{% endblock %}
