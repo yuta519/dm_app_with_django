@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.views import generic
 
@@ -7,7 +7,7 @@ from app.forms import LoginFormWithUsername
 
 class LoginView(generic.FormView):
     form_class = LoginFormWithUsername
-    template_name = "registration/login.html"
+    template_name = "auth/login.html"
 
     def form_valid(self, form: LoginFormWithUsername):
         user = authenticate(
@@ -20,3 +20,9 @@ class LoginView(generic.FormView):
             return redirect("/")
         else:
             return redirect("/login")
+
+
+def logout_view(request):
+    logout(request)
+    print(request.user.is_authenticated)
+    return redirect("/")
