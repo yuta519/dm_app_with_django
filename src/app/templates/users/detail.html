@@ -1,4 +1,7 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
 <script src="{% static 'conversations/request.js' %}"></script>
 <script>
   async function handleSubmit() {
@@ -20,7 +23,7 @@
 <p>Email: {{ user.email }}</p>
 <form id="start-conversation-form" onSubmit="handleSubmit()" target="iframe">
   {% csrf_token %}
-  <input type="hidden" name="user1" value="{{ user.pk }}" />
+  <input type="hidden" name="user1" value="{{ auth_user.pk }}" />
   <input type="hidden" name="user2" value="{{ user.pk }}" />
   <button type="submit">Start Convesation</button>
 </form>
