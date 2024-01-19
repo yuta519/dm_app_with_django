@@ -19,13 +19,17 @@
 
   <script>
     const id = {{ conversation.id }}
-    const socket = new WebSocket(`ws://${window.location.host}/ws/chat/${id}/`);
+    let socket = new WebSocket(`ws://${window.location.host}/ws/chat/${id}/`);
+    socket.onopen = function (e) {
+      console.log("The connection was setup successfully !");
+    };
     socket.onmessage = function(e) {
       const data = JSON.parse(e.data);
       document.querySelector('#chat-log').value += (data.message + '\n');
     };
     socket.onclose = function(e) {
       console.error('Chat socket closed unexpectedly');
+      socket = new WebSocket(`ws://${window.location.host}/ws/chat/${id}/`);
     };
 
     document.querySelector('#chat-message-input').focus()
