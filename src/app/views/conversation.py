@@ -11,7 +11,7 @@ class ConversationListView(LoginRequiredMixin, generic.ListView):
     template_name = "conversations/list.html"
 
 
-class ConversationDetailView(generic.DetailView):
+class ConversationDetailView(LoginRequiredMixin, generic.DetailView):
     model = Conversation
     template_name = "conversations/detail.html"
 
