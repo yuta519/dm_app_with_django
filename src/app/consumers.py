@@ -53,7 +53,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def credate_message(self, user, conversation, content):
         if not len(content):
-            raise ValueError("Text is empty")
+            print("Text is empty")
+            return
         message = Message.objects.create(
             user=user, conversation=conversation, content=content
         )
