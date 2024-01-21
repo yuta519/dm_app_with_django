@@ -1,9 +1,9 @@
 import json
 
+from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 
-# TODO: Will save messages to database
-# from app.models import Conversation, Message
+from app.models import User
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -21,6 +21,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
         user = text_data_json["user"]
+
         await self.channel_layer.group_send(
             self.room_id,
             {
@@ -33,4 +34,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def sendMessage(self, event):
         message = event["message"]
         user = event["user"]
+        user_instance = await self.get_user(user["id"])
+        print(user_instance)
         await self.send(text_data=json.dumps({"message": message, "user": user}))
+
+    @database_sync_to_async
+    def get_user(self, user_id):
+        return User.objects.get(id=user_id)
