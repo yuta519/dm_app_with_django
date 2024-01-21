@@ -1,9 +1,10 @@
+import asyncio
 import json
 
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 
-from app.models import Conversation, User
+from app.models import Conversation, Message, User
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -34,10 +35,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def sendMessage(self, event):
         message = event["message"]
         user = event["user"]
-        user_instance = await self.get_user(user["id"])
-        conversation = await self.get_conversation(self.room_id)
-        print(user_instance)
-        print(conversation)
+
+        user_instance, conversation = await asyncio.gather(
+            self.get_user(user["id"]), self.get_conversation(self.room_id)
+        )
+        print(user_instance, conversation)
+
         await self.send(text_data=json.dumps({"message": message, "user": user}))
 
     @database_sync_to_async
@@ -47,3 +50,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def get_conversation(self, id):
         return Conversation.objects.get(id=id)
+
+    @database_sync_to_async
+    def credate_message(self, user, conversation, text):
+        if len(text):
+            raise ValueError("Text is empty")
+        return Message.objects.create(user=user, conversation=conversation, text=text)
