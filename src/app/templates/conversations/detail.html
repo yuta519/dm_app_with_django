@@ -19,7 +19,7 @@
 
   <script>
     const id = {{ conversation.id }}
-    let socket = new WebSocket(`ws://${window.location.host}/ws/chat/${id}/`);
+    const socket = new WebSocket(`ws://${window.location.host}/ws/chat/${id}/`);
     socket.onopen = function (e) {
       console.log("The connection was setup successfully !");
     };
@@ -29,22 +29,18 @@
     };
     socket.onclose = function(e) {
       console.error('Chat socket closed unexpectedly');
-      socket = new WebSocket(`ws://${window.location.host}/ws/chat/${id}/`);
     };
 
     document.querySelector('#chat-message-input').focus()
     document.querySelector('#chat-message-input').onkeyup = function(e) {
-      if (e.key === 'Enter') {
-        document.querySelector('#chat-message-submit').click();
-      }
+      if (e.key === 'Enter') document.querySelector('#chat-message-submit').click();
     };
-
     document.querySelector('#chat-message-submit').onclick = function(e) {
       const messageInputDom = document.querySelector('#chat-message-input');
       const message = messageInputDom.value;
-      socket.send(JSON.stringify({
-        'message': message
-      }));
+      const name = '{{ user }}';
+      const id = {{ user.id }};
+      socket.send(JSON.stringify({ message, user: { name, id } }));
       messageInputDom.value = '';
     };
   </script>
