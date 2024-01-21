@@ -39,8 +39,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         user_instance, conversation = await asyncio.gather(
             self.get_user(user["id"]), self.get_conversation(self.room_id)
         )
-        print(user_instance, conversation)
-
+        await self.credate_message(user_instance, conversation, message)
         await self.send(text_data=json.dumps({"message": message, "user": user}))
 
     @database_sync_to_async
@@ -52,7 +51,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         return Conversation.objects.get(id=id)
 
     @database_sync_to_async
-    def credate_message(self, user, conversation, text):
-        if len(text):
+    def credate_message(self, user, conversation, content):
+        if not len(content):
             raise ValueError("Text is empty")
-        return Message.objects.create(user=user, conversation=conversation, text=text)
+        message = Message.objects.create(
+            user=user, conversation=conversation, content=content
+        )
+        message.save()
