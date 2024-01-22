@@ -25,4 +25,9 @@ urlpatterns = [
         ConversationApiViewSet.as_view({"get": "list", "post": "create"}),
         name="conversation_api",
     ),
+    path(
+        "api/conversations/<int:pk>",
+        ConversationApiViewSet.as_view({"get": "retrieve"}),
+        name="conversation_api",
+    ),
 ]
