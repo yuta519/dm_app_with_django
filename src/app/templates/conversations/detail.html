@@ -5,9 +5,9 @@
   <div id="chat-input">
     <input type="text" id="chat-message-input" placeholder="Type a message" />
     <button id="chat-message-submit">Send</button>
-    <button onclick="notifyMe()">Notify me!</button>
   </div>
 </div>
+
 <script>
   const id = {{ conversation.id }}
   const socket = new WebSocket(`ws://${window.location.host}/ws/chat/${id}/`);
