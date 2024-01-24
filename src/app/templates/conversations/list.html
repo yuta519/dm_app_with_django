@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Conversations</h1>
+<h1 class="ms-2">Conversations</h1>
 <ul>
   {% for conversation in conversation_list %}
-  <li>
-    <a href="{% url 'conversation_detail' conversation.pk %}">
+  <li class="ms-4">
+    <a
+      class="fs-2 fw-medium"
+      href="{% url 'conversation_detail' conversation.pk %}"
+    >
       {{conversation.friend}}
     </a>
   </li>
