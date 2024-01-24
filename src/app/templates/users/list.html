@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <h1>List of Users</h1>
 <ul class="ml-5">
   {% for user in user_list %}
   <li class="ms-4">
-    <a class="fs-2 fw-medium" href="{% url 'user_detail' user.pk %}"
-      >{{user}}</a
-    >
+    <a class="fs-2 fw-medium" href="{% url 'user_detail' user.pk %}">
+      {{user}}
+    </a>
   </li>
   {% endfor %}
 </ul>
