@@ -1,32 +1,29 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
-<script src="{% static 'conversations/request.js' %}"></script>
-<script>
-  async function handleSubmit() {
-    try {
-      const input = document.getElementById("start-conversation-form");
-      const user1 = input.user1.value;
-      const user2 = input.user2.value;
-      const response = await createConversations(user1, user2);
-      location.href = `/conversations/${response.id}/`;
-    } catch (error) {
-      console.error(error);
+{% extends 'base.html' %} {% load static %} {% block content %}
+  <script src="{% static 'conversations/request.js' %}"></script>
+  <script>
+    async function handleSubmit() {
+      try {
+        const input = document.getElementById("start-conversation-form");
+        const user1 = input.user1.value;
+        const user2 = input.user2.value;
+        const response = await createConversations(user1, user2);
+        location.href = `/conversations/${response.id}/`;
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }
-</script>
+  </script>
 
-<iframe name="iframe" id="iframe" style="display: none"></iframe>
-<h1>User Detail</h1>
-<div class="fs-4 ms-3">
-  <p>Name: {{ user }}</p>
-  <p>Email: {{ user.email }}</p>
-  <form id="start-conversation-form" onSubmit="handleSubmit()" target="iframe">
-    {% csrf_token %}
-    <input type="hidden" name="user1" value="{{ auth_user.pk }}" />
-    <input type="hidden" name="user2" value="{{ user.pk }}" />
-    <button type="submit" class="btn btn-success">Start Conversation</button>
-  </form>
-</div>
+  <iframe name="iframe" id="iframe" style="display: none"></iframe>
+  <h1>User Detail</h1>
+  <div class="fs-4 ms-3">
+    <p>Name: {{ user }}</p>
+    <p>Email: {{ user.email }}</p>
+    <form id="start-conversation-form" onSubmit="handleSubmit()" target="iframe">
+      {% csrf_token %}
+      <input type="hidden" name="user1" value="{{ auth_user.pk }}" />
+      <input type="hidden" name="user2" value="{{ user.pk }}" />
+      <button type="submit" class="btn btn-success">Start Conversation</button>
+    </form>
+  </div>
 {% endblock %}

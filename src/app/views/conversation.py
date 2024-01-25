@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.views import generic
 from rest_framework import viewsets
 
@@ -33,7 +34,8 @@ class ConversationApiViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     serializer_class = ConversationSerializer
 
     def get_queryset(self):
-        queryset = Conversation.objects.all()
+        queryset = super().get_queryset()
+        queryset.filter(Q(user1=self.request.user) | Q(user2=self.request.user))
         user = self.request.query_params.get("user", None)
         if user is not None:
             queryset = queryset.filter(user=user)
