@@ -11,6 +11,7 @@ dependencies = [
   "gunicorn",
   "whitenoise",
   "channels[daphne]",
+  "django-redis",
 ]
 
 [project.optional-dependencies]
@@ -25,10 +26,7 @@ dev = [
 ]
 
 [tool.mypy]
-plugins = [
-  "mypy_django_plugin.main",
-  "mypy_drf_plugin.main",
-]
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
 
 [tool.django-stubs]
 django_settings_module = "src.config.settings"
