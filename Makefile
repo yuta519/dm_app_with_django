@@ -9,3 +9,7 @@ install:
 test:
 	@ruff $(PACKAGE_DIR)
 	@mypy $(PACKAGE_DIR)
+
+.PHONY: run
+run :
+	@python manage.py runserver
